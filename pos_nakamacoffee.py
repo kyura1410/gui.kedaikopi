@@ -3,11 +3,11 @@ POS KEDAI KOPI NAKAMA
 Kelompok 1
 NAMA ANGGOTA KELOMPOK:
 1. Nyoman Ardhi Rahmayana (02560001)
-2. Gede Angga Kurniawan Saputra ()
+2. Gede Angga Kurniawan Saputra (02560003)
 3. Gede Angga Wijaya Kusuma ()
 
 PENGGUNAAN AI GEMINI
-
+PENGGUNAAN AI GPT 5
 
 PENGGUNAAN REFERNSI MATERI
 
@@ -31,17 +31,21 @@ class POSNakamaCoffee:
             with open(DB_PATH, mode="w", newline="") as file:
                 writer = csv.writer(file)
                 writer.writerow(["nama", "harga"])
-                                                                           # Line 28-41 bagian Angga Kur
+                                                                           # Line 28-43 Angga Kurniawan
     def load_menu(self):
-        data = []
-        with open(DB_PATH, mode="r") as file:
+        if not os.path.exists(DB_PATH):
+            return[]
+        items = []
+        with open(DB_PATH, mode="r", newline="") as file:
             reader = csv.DictReader(file)
             for row in reader:
-                data.append(row)
-        return data
+                items.append(row)
+        return items
     
     def __init__(self, root):
         self.root = root
+        self.init_file()
+        self.menu_items = self.load_menu()
         self.root.title("Nakama Coffee Shop - nongki sambil ngopi with nakama")
         self.root.geometry("600x400")
         self.root.resizable(False, False)
