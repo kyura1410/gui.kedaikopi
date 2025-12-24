@@ -20,7 +20,26 @@ import os
 import tkinter as tk
 from tkinter import ttk, messagebox
 
+DB_PATH = "db/menu.csv"
+
+
 class POSNakamaCoffee:
+
+    def init_file(self):
+        os.makedirs("db", exist_ok=True)
+        if not os.path.exists(DB_PATH):
+            with open(DB_PATH, mode="w", newline="") as file:
+                writer = csv.writer(file)
+                writer.writerow(["nama", "harga"])
+                                                                           # Line 28-41 bagian Angga Kur
+    def load_menu(self):
+        data = []
+        with open(DB_PATH, mode="r") as file:
+            reader = csv.DictReader(file)
+            for row in reader:
+                data.append(row)
+        return data
+    
     def __init__(self, root):
         self.root = root
         self.root.title("Nakama Coffee Shop - nongki sambil ngopi with nakama")
